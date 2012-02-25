@@ -50,7 +50,7 @@ class ServerLove{
 		$this->username = $username;
 		$this->password = $password;	
 	}
-	
+	//Server 
 	function listallservers(){
 		return $this->api_call('/servers/list');
 	}
@@ -64,7 +64,17 @@ class ServerLove{
 	function start($serviceid){
 		return $this->api_call("/servers/$serviceid/start",true);	
 	}
-    
+    //Drives
+	function listalldrives(){
+		return $this->api_call('/servers/list');
+	}
+	function driveinfo($driveid)
+	{
+		return $this->api_call("/drives/$driveid/info");	
+	}
+	
+	
+	//Curl
 	function api_call($call,$post=false)
 	{
 		$qry_str = $call;

@@ -52,7 +52,7 @@ class ServerLove{
 	}
 	
 	function listallservers(){
-			return $this->api_call('/servers/list');
+		return $this->api_call('/servers/list');
 	}
 	function serverinfo($serviceid)
 	{
@@ -74,12 +74,12 @@ class ServerLove{
 		if($post == false)
 		{
 			//GET
-			curl_setopt ($curl, CURLOPT_URL, $this->url . $qry_str);
+			curl_setopt ($curl, CURLOPT_URL, self::$apiUrl . $qry_str);
 			curl_setopt($curl,CURLOPT_HTTPHEADER,array ("Accept: application/json"));
 			curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 		} elseif ($post == true) 
 		{
-			curl_setopt($curl,CURLOPT_URL,$this->url. $call);
+			curl_setopt($curl,CURLOPT_URL,self::$apiUrl . $call);
 			curl_setopt($curl,CURLOPT_POST,'start'); 
 			curl_setopt($curl,CURLOPT_POSTFIELDS,'now');
 			

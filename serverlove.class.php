@@ -97,9 +97,4 @@ class ServerLove{
 	   return(json_decode($result,true));
 	}
 }
-$test = new ServerLove();
- 
-//print_r($test->shutdown("0868daa2-2e8d-4b26-bd39-4503b8ff6ece"));
-//print_r($test->listallservers());
- //05496f28-3ca4-437a-ab4c-3b4e2458d6d5
 ?>

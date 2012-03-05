@@ -64,34 +64,44 @@ class ServerLove{
 	function start($serviceid){
 		return $this->api_call("/servers/$serviceid/start",true);	
 	}
+	function serverset($uuid,$options){
+		return $this->api_call("/servers/$uuid/set",$options);	
+	}
     //Drives
 	function listalldrives(){
-		return $this->api_call('/servers/list');
+		return $this->api_call('/drives/list');
 	}
 	function driveinfo($driveid)
 	{
 		return $this->api_call("/drives/$driveid/info");	
 	}
+	function drivecreate($options)
+	{
+		return $this->api_call("/drives/create",$options);		
+	}
+	function drivesset($uuid,$options){
+		return $this->api_call("/drives/$uuid/set",$options);	
+	}
 	
 	
 	//Curl
-	function api_call($call,$post=false)
+	function api_call($call,$options = NULL)
 	{
 		$qry_str = $call;
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_USERPWD, $this->username.':'.$this->password);
 		
-		if($post == false)
+		if(empty($options))
 		{
 			//GET
 			curl_setopt ($curl, CURLOPT_URL, self::$apiUrl . $qry_str);
 			curl_setopt($curl,CURLOPT_HTTPHEADER,array ("Accept: application/json"));
 			curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-		} elseif ($post == true) 
+		} else 
 		{
 			curl_setopt($curl,CURLOPT_URL,self::$apiUrl . $call);
-			curl_setopt($curl,CURLOPT_POST,'start'); 
-			curl_setopt($curl,CURLOPT_POSTFIELDS,'now');
+			curl_setopt($curl,CURLOPT_POST,1); 
+			curl_setopt($curl,CURLOPT_POSTFIELDS,$options);
 			
 			
 		}
@@ -101,8 +111,8 @@ class ServerLove{
 	   
 	   $result = curl_exec ($curl);
 	   
-	   $http_status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-		echo $http_status;
+	   //echo $http_status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+		
 		curl_close ($curl);
 	   return(json_decode($result,true));
 	}

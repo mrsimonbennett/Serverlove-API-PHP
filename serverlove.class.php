@@ -30,11 +30,12 @@
  *
  * @package  ServerLove
  * @category Services
- * @author   Simon Bennett <simon@bennett.im>
+ * @author   Simon Bennett <hello@bennett.im>
  * @license  http://www.opensource.org/licenses/bsd-license.php New BSD License  
  * @version  @package_version@
  * @link     https://github.com/wgas/Serverlove-API-PHP
- * @link     
+ * @link     http://www.serverlove.com/support/api-questions/
+ * @link     http://simon.bennett.im
  */
 class ServerLove{
 	
@@ -51,21 +52,25 @@ class ServerLove{
 		$this->password = $password;	
 	}
 	//Server 
-	function listallservers(){
+	function serverslist(){
 		return $this->api_call('/servers/list');
 	}
 	function serverinfo($serviceid)
 	{
 		return $this->api_call("/servers/$serviceid/info");	
 	}
-	function shutdown($serviceid){
-		return $this->api_call("/servers/$serviceid/shutdown",true);	
+	function servershutdown($serviceid){
+		return $this->api_call("/servers/$serviceid/shutdown");	
 	}
-	function start($serviceid){
-		return $this->api_call("/servers/$serviceid/start",true);	
+	function serverstart($serviceid){
+		return $this->api_call("/servers/$serviceid/start");	
 	}
-	function serverset($uuid,$options){
-		return $this->api_call("/servers/$uuid/set",$options);	
+	function serverset($serviceid,$options){
+		return $this->api_call("/servers/$serviceid/set",$options);	
+	}
+	function serverreset($serviceid)
+	{
+		return $this->api_call("/servers/$serviceid/start");	
 	}
     //Drives
 	function listalldrives(){
@@ -78,6 +83,10 @@ class ServerLove{
 	function drivecreate($options)
 	{
 		return $this->api_call("/drives/create",$options);		
+	}
+	function drivedistroy($driveid)
+	{
+		return $this->api_call("/drive/$driveid/destory");	
 	}
 	function drivesset($uuid,$options){
 		return $this->api_call("/drives/$uuid/set",$options);	
